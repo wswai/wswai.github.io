@@ -4,6 +4,7 @@ A professional investment fund website for TradingTransformer Technologies LLC, 
 
 **Official Website**: [www.tradingtransformer.com](https://www.tradingtransformer.com)
 
+
 ## 🚀 Overview
 
 TradingTransformer Technologies is an investment fund that leverages proprietary "Transformer" AI technology to analyze market data and optimize portfolio allocations. This website serves as the primary digital presence for the fund, providing information about investment strategies, performance, and contact details for potential investors.

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-F">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradingTransformer - WSW AI </title>
+    <!-- Favicon -->
+    <link rel="icon" href="wswai.jpeg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="wswai.jpeg">
+    <meta name="theme-color" content="#0A2F5B"> <!-- This sets the browser tab color on mobile -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17214811508"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17214811508');
+    </script>
+
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --primary-color: #0A2F5B; /* Deep Blue */
+            --secondary-color: #005A8D; /* Medium Blue */
+            --accent-color: #1ABC9C;   /* Teal/Turquoise */
+            --text-color: #333;
+            --light-text-color: #fff;
+            --bg-light: #f0f4f8;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --heading-font: 'Georgia', serif; 
+            --performance-positive: #2ECC71; /* Green */
+            --performance-negative: #E74C3C; /* Red */
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 10px 0;
+            }
+        }
+
+        h1, h2, h3 {
+            font-family: var(--heading-font);
+            color: var(--primary-color);
+            margin-bottom: 0.8em;
+        }
+
+        h1 { font-size: 2.8em; }
+        h2 { font-size: 2.2em; }
+        h3 { font-size: 1.8em; }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            color: #fff; /* Override for logo */
+        }
+
+        .logo .highlight {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: var(--light-text-color);
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(10, 47, 91, 0.80), rgba(10, 47, 91, 0.90)), url('https://images.unsplash.com/photo-1639322537504-6427a16b0a28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1800&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--light-text-color);
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Add a subtle animation effect to the hero background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(26, 188, 156, 0.1) 0%, rgba(10, 47, 91, 0) 70%);
+            z-index: 0;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 0.5em;
+            color: #FFF; /* Override for Hero H1 */
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 1.5em;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #16a085; /* Darker accent */
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* --- YTD Performance Section --- */
+        .performance-banner {
+            background-color: var(--secondary-color); /* Different blue */
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--light-text-color);
+        }
+        .performance-banner h2 {
+            color: var(--light-text-color); /* Override for this H2 */
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        .ytd-number {
+            font-size: 4em; /* Make it BIG */
+            font-weight: bold;
+            color: var(--performance-positive); /* Default to positive */
+            display: block;
+            margin-bottom: 10px;
+        }
+        .ytd-label {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        /* Example for negative performance:
+        .ytd-number.negative { color: var(--performance-negative); }
+        */
+
+        /* --- Content Sections --- */
+        section {
+            padding: 60px 0;
+        }
+        section:nth-child(even) { /* Alternating background for sections */
+            background-color: var(--bg-light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .grid-item {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .grid-item h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+
+        /* --- Call to Action Section --- */
+        .cta-section {
+            background-color: var(--accent-color);
+            color: var(--light-text-color);
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .cta-section h2 {
+            color: var(--light-text-color);
+            margin-bottom: 1em;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--primary-color);
+            color: #a7c0dd; /* Lighter blue for footer text*/
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: var(--accent-color);
+        }
+
+        /* --- Disclaimer --- */
+        .disclaimer {
+            padding: 20px;
+            background-color: #e9ecef;
+            text-align: center;
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+        .disclaimer p { margin-bottom: 0.5em; }
+
+        /* --- Responsive Adjustments --- */
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-btn span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 8px 0;
+            }
+            
+            .hero {
+                padding: 60px 15px;
+            }
+            
+            header .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+                padding: 0;
+            }
+            
+            .logo {
+                font-size: 1.5em;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            nav#main-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--primary-color);
+                z-index: 1000;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                padding-top: 60px;
+            }
+            
+            nav#main-nav.active {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 10px 0;
+                font-size: 1.2em;
+            }
+            
+            /* Animation for hamburger to X */
+            .mobile-menu-btn.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .mobile-menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-btn.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            .hero h1 {
+                font-size: 2.2em;
+                line-height: 1.3;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+            
+            .ytd-number {
+                font-size: 3em;
+            }
+            
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            
+            .grid {
+                grid-template-columns: 1fr; /* Stack grid items on smaller screens */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">Trading<span class="highlight">Transformer</span></div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#strategy">Strategy</a></li>
+                    <li><a href="#performance">Performance</a></li>
+                    <li><a href="annual-letter-2025.html" target="_blank">CEO letter</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Transforming Investments with Technology</h1>
+            <p>TradingTransformer Technologies leverages cutting-edge AI and quantitative models to unlock superior market returns. Discover the future of fund management.</p>
+            <a href="annual-letter-2025.html" class="cta-button">Learn More</a>
+        </div>
+    </section>
+
+    <div class="performance-banner" id="performance">
+        <div class="container">
+            <h2>Our Fund Performance</h2>
+            <!-- YTD PERFORMANCE NUMBER - UPDATE THIS! -->
+            <span class="ytd-number">+65.29%</span>
+            <!-- If performance is negative, add class="negative" to ytd-number and update text -->
+            <!-- <span class="ytd-number negative">-2.34%</span> -->
+            <span class="ytd-label">Year-to-Date (YTD) Return <span style="font-size:0.9em; opacity:0.7;">(as of June 25, 2025)</span></span>
+            <p style="font-size: 0.9em; opacity: 0.8; margin-top: 15px;">
+                Past performance is not indicative of future results.
+            </p>
+            <p style="margin-top: 20px; font-size: 1.1em;"><a href="annual-letter-2025.html" target="_blank" style="color: #fff; font-weight: bold; text-decoration: underline;">Read our 2025 Annual Letter from the CEO</a></p>
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About TradingTransformer Technologies</h2>
+            <p>Founded on the principle of innovation, TradingTransformer Technologies is a pioneering investment firm dedicated to harnessing the power of artificial intelligence and large language model AI agents. Our "Transformer" models are designed to identify and capitalize on market inefficiencies previously undetectable by traditional methods.</p>
+            <p><em>It took 6 years' research from inception (October 25, 2019) to reach excellence, with legal incorporation in Delaware on June 6, 2023.</em></p>
+            <div class="grid">
+                <div class="grid-item">
+                    <h3>Our Mission</h3>
+                    <p>To deliver exceptional, risk-adjusted returns for our investors through disciplined, technology-driven investment strategies. We aim to redefine the boundaries of active management.</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Core Values</h3>
+                    <p style="line-height: 1.7;">
+                        <strong style="color:#1976d2;">T</strong>rustworthiness<br>
+                        <strong style="color:#388e3c;">R</strong>esponsibility<br>
+                        <strong style="color:#fbc02d;">A</strong>daptability<br>
+                        <strong style="color:#d32f2f;">D</strong>iligence<br>
+                        <strong style="color:#8e24aa;">I</strong>nnovation<br>
+                        <strong style="color:#00acc1;">N</strong>imbleness<br>
+                        <strong style="color:#388e3c;">G</strong>rowth<br>
+                        <strong style="color:#1976d2;">T</strong>eamwork<br>
+                        <strong style="color:#d32f2f;">R</strong>esilience<br>
+                        <strong style="color:#fbc02d;">A</strong>ccountability<br>
+                        <strong style="color:#8e24aa;">N</strong>oble<br>
+                        <strong style="color:#00acc1;">S</strong>trategy<br>
+                        <strong style="color:#388e3c;">F</strong>ocus<br>
+                        <strong style="color:#1976d2;">O</strong>penness<br>
+                        <strong style="color:#d32f2f;">R</strong>esults<br>
+                        <strong style="color:#fbc02d;">M</strong>indfulness<br>
+                        <strong style="color:#8e24aa;">E</strong>ffortless<br>
+                        <strong style="color:#00acc1;">R</strong>esolute<br>
+                    </p>
+                </div>
+                <div class="grid-item">
+                    <h3>Our Vision</h3>
+                    <p>To be the leading global investment firm recognized for our technological prowess, transparency, and unwavering commitment to client success in the evolving financial landscape.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="strategy">
+        <div class="container">
+            <h2 class="section-title">Our Investment Strategy</h2>
+            <p>Our proprietary "Transformer" investment engine is at the heart of our strategy. It continuously analyzes vast datasets, including market data and alternative text data, to generate predictive insights and optimize portfolio allocations.</p>
+            <div class="grid">
+                <div class="grid-item">
+                    <h4>Quantitative Analysis</h4>
+                    <p>We employ sophisticated statistical models and machine learning algorithms&mdash;including large language models&mdash;not only to identify patterns and predict market movements with greater accuracy, but also to enhance both our investment decision making and the continuous iteration of our quantitative approaches.</p>
+                </div>
+                <div class="grid-item">
+                    <h4>Risk Management</h4>
+                    <p>We <span style="color: var(--accent-color); font-weight: bold;">never borrow money and never use leverage</span>. Our investment process is strictly long-only and fully funded, ensuring that portfolio risk is controlled and always aligned with our clients' tolerance. Advanced risk modeling is integral to our process, providing additional resiliency in all market conditions.</p>
+                </div>
+                <div class="grid-item">
+                    <h4>AI-Powered & Expert-Reviewed Decisions</h4>
+                    <p>Our AI-driven systems adapt to evolving market conditions, learning from new data to continuously improve strategies and performance. Every important decision is personally reviewed by our CEO, ensuring responsible oversight and a synergy between advanced technology and human expertise.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <p>
+                    Our approach is focused exclusively on stocks, maintaining a long-only position without the use of leverage. As a medium- to low-frequency trading firm, we emphasize disciplined, research-driven strategies that prioritize sustainable growth and prudent risk management.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="learn-more" class="cta-section" style="background-color: var(--bg-light);">
+        <div class="container">
+            <h2 style="color: var(--primary-color);">Ready to Transform Your Portfolio?</h2>
+            <p style="color: #1abc9c; background: linear-gradient(90deg, #0A2F5B 0%, #5dade2 100%); max-width:600px; margin: 0 auto 2em auto; font-size:1.15em; padding: 1.2em 1.5em; border-radius: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.07); line-height: 1.7;">
+                <span style="color: #00FF00; font-weight: 600;">Our proprietary technology</span>
+                <span style="color:#FFF;"> features a </span>
+                <span style="color:#00FF00; font-weight:600;">large language model-based method</span>
+                <span style="color:#FFF;"> to retrieve companies before ranking, enabling more accurate and insightful investment decisions.</span>
+                <br><br>
+                <span style="color:#FFF;">Discover how </span>
+                <span style="color:#00FF00; font-weight: 600;">TradingTransformer Technologies LLC</span>
+                <span style="color:#FFF;"> can help you achieve your financial goals. </span>
+                <span style="background-color: var(--accent-color); color: var(--light-text-color); font-weight: bold; padding: 0.22em 0.72em; border-radius: 6px; box-shadow: 0 2px 8px rgba(26, 188, 156, 0.3);">Chat with the <a href="https://wsw.ai" target="_blank" rel="noopener noreferrer"
+                   style="color: var(--light-text-color); font-weight: bold; text-decoration: none; transition: color 0.3s ease;"
+                   onmouseover="this.style.color='#e8f8f5';"
+                   onmouseout="this.style.color='var(--light-text-color)';"
+                >WSW AI</a> chatbot after paying at <a href="https://wsw.ai" target="_blank" rel="noopener noreferrer" style="color: var(--light-text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#e8f8f5';" onmouseout="this.style.color='var(--light-text-color)';">https://wsw.ai</a> <a href="https://wsw.ai" target="_blank" rel="noopener noreferrer" style="color: var(--light-text-color); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='#e8f8f5';" onmouseout="this.style.color='var(--light-text-color)';">website</a>.</span>
+            </p>
+            <a href="https://wsw.ai" target="_blank" rel="noopener noreferrer"
+               class="cta-button"
+               style="
+                   background-color: var(--accent-color);
+                   color: var(--light-text-color);
+                   padding: 15px 30px;
+                   border-radius: 5px;
+                   font-size: 1.1em;
+                   font-weight: bold;
+                   text-transform: uppercase;
+                   transition: background-color 0.3s ease, transform 0.2s ease;
+                   display: inline-block;
+                   text-decoration: none;
+                   cursor: pointer;
+               "
+               onmouseover="
+                   this.style.backgroundColor='#16a085'; 
+                   this.style.transform='translateY(-2px)';
+               "
+               onmouseout="
+                   this.style.backgroundColor='var(--accent-color)'; 
+                   this.style.transform='translateY(0)';
+               "
+             >WSW AI chatbot</a>
+        </div>
+    </section>
+
+    <!-- Claude Shannon Quote Section -->
+    <section style="
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 100px 20px;
+        position: relative;
+        overflow: hidden;
+        margin: 40px 0;
+        box-shadow: 
+            0 -10px 30px rgba(10,47,91,0.05),
+            0 10px 30px rgba(10,47,91,0.05);
+    ">
+        <!-- Decorative background elements -->
+        <div style="
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(10,47,91,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        "></div>
+        <div style="
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(29,233,182,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        "></div>
+        
+        <div class="container" style="position: relative; z-index: 2;">
+            <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                <h2 class="section-title" style="color: var(--primary-color); margin-bottom: 40px; font-size: 2.2em;">Our Founding Inspiration</h2>
+                
+                <div style="
+                    background: white;
+                    border-radius: 20px;
+                    padding: 50px 40px;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+                    border: 1px solid rgba(10,47,91,0.08);
+                    margin-bottom: 30px;
+                    position: relative;
+                ">
+                    <!-- Quote marks -->
+                    <div style="
+                        position: absolute;
+                        top: 20px;
+                        left: 30px;
+                        font-size: 4em;
+                        color: var(--accent-color);
+                        opacity: 0.3;
+                        font-family: Georgia, serif;
+                        line-height: 1;
+                    ">"</div>
+                    
+                    <blockquote style="
+                        font-style: italic;
+                        font-size: 1.2em;
+                        line-height: 1.7;
+                        color: #2c3e50;
+                        margin: 0;
+                        padding: 20px 40px 0 40px;
+                        font-family: Georgia, 'Times New Roman', serif;
+                        text-align: left;
+                        position: relative;
+                    ">
+                        Claude Shannon set four goals for artificial intelligence to achieve by 2001: a chess-playing program that was crowned world champion, a poetry program that had a piece accepted by the New Yorker, a mathematical program that proved the elusive Riemann hypothesis, and, <strong style="color: var(--primary-color);">'most important,'</strong> <strong style="color: var(--accent-color);">a stock-picking program that outperformed the prime rate by 50 percent</strong>. 'These goals,' he said only half-jokingly, 'could mark the beginning of a phase-out of the stupid, entropy-increasing, and militant human race in favor of a more logical, energy conserving, and friendly species — the computer.'
+                    </blockquote>
+                    
+                    <!-- Closing quote mark -->
+                    <div style="
+                        position: absolute;
+                        bottom: 10px;
+                        right: 30px;
+                        font-size: 4em;
+                        color: var(--accent-color);
+                        opacity: 0.3;
+                        font-family: Georgia, serif;
+                        line-height: 1;
+                    ">"</div>
+                </div>
+                
+                <div style="
+                    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+                    color: white;
+                    padding: 25px 35px;
+                    border-radius: 15px;
+                    box-shadow: 0 10px 30px rgba(10,47,91,0.15);
+                ">
+                    <p style="margin: 0 0 8px 0; font-size: 1em; font-weight: 500;">
+                        From <em style="color: var(--accent-color);">A Mind at Play</em>, Jimmy Soni and Rob Goodman's 2017 biography of AI pioneer Claude Shannon
+                    </p>
+                    <p style="margin: 0; font-size: 0.95em; opacity: 0.9; font-style: italic;">
+                        Claude Shannon wrote that in 1984. He died in 2001.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p style="text-align: center;">We welcome inquiries from accredited investors and institutions. Reach out to us to learn more about our fund and investment opportunities.</p>
+            <div style="text-align: center; font-size: 1.1em;">
+                <p><strong>Email:</strong> <a href="mailto:contact@tradingtransformer.com">contact@tradingtransformer.com</a> &nbsp;|&nbsp; <a href="mailto:team@wsw.ai">team@wsw.ai</a></p>
+            </div>
+            <!-- You can add a contact form here if desired -->
+        </div>
+    </section>
+
+    <div class="disclaimer">
+        <div class="container">
+            <p><strong>Important Disclaimer:</strong> Investment in any fund, including those managed by TradingTransformer Technologies, involves risk, including the possible loss of principal. Past performance is not a guarantee of future results. The information provided on this website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities or investment products. Any such offer or solicitation will be made only by means of a confidential private placement memorandum and an appropriate subscription agreement, and only in jurisdictions where permitted by law. Please consult with your financial advisor before making any investment decisions.</p>
+            <!-- <p>Hypothetical or simulated performance results have certain limitations. Unlike an actual performance record, simulated results do not represent actual trading. Also, since the trades have not been executed, the results may have under-or-over compensated for the impact, if any, of certain market factors, such as lack of liquidity.</p> -->
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> TradingTransformer Technologies LLC. All Rights Reserved.</p>
+            <p><a href="wsw_ai/privacy-policy.html">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to update year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+        
+        if (menuBtn && mainNav) {
+            menuBtn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                // Prevent body scrolling when menu is open
+                document.body.classList.toggle('menu-open');
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('#main-nav a').forEach(link => {
+                link.addEventListener('click', function() {
+                    menuBtn.classList.remove('active');
+                    mainNav.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+        }
+
+        // Optional: Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#' || this.getAttribute('href') === '#0') return;
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
